@@ -8,7 +8,7 @@ const router = Router();
 
 //usuario: ------------------------------------------
 router.post('/account/register', UserController.createUser);
-router.post('account/login', LoginController.login);
+router.post('/account/login', LoginController.login);
 router.get('/users', UserController.listUser);
 
 //posts: ----------------------------------------------
