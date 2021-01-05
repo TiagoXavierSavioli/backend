@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const Schema = new mongoose.Schema({
-    coordinates: {
+    latitude: {
+        type: String,
+        required: true
+    },
+    longitude: {
         type: String,
         required: true
     },

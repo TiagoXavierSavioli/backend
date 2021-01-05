@@ -5,35 +5,37 @@ const Post = require('../Models/Post');
 module.exports = {
     async FistCoordinates (req, res) {
         const { user } = req.headers
-        const { coordinates } = req.body
+        const { latitude, longitude } = req.body
 
         try{
             const newCoordinates = await Location.create({
-                coordinates, 
+                latitude,
+                longitude,
                 user
             })
 
-            return res.status(200).json({ message: 'success', data: newCoordinates })
+            return res.status(200).send({ message: 'success', data: newCoordinates })
 
         } catch(err) {
-            return res.status(400).json(err)
+            return res.status(400).send(err)
         }
     },
 
     async updateCoordinates (req, res) {
         const { user } = req.headers
-        const { coordinates } = req.body
+        const { latitude, longitude } = req.body
 
         try{
             const newCoordinates = await Location.findOneAndUpdate({
                 user: user,
-                coordinates: coordinates
+                latitude: latitude,
+                longitude: longitude
             })
 
-            return res.status(200).json({ message: 'success', data: newCoordinates })
+            return res.status(200).send({ message: 'new coordinates registered', data: newCoordinates })
 
         } catch(err) {
-            return res.status(400).json(err)
+            return res.status(400).send(err)
         }
     },
 

@@ -1,19 +1,26 @@
 const {Router} = require('express');
 const LoginController = require('../Controllers/LoginController');
 const UserController = require('../Controllers/UserController');
+const PostController = require('../Controllers/PostController');
+const LocationController = require('../Controllers/LocationController');
 
 const router = Router();
 
-// criar usuario
-router.post('/account/register', UserController.createUser)
-// fazer login
-router.post('/account/login', LoginController.login)
+//usuario: ------------------------------------------
+router.post('/account/register', UserController.createUser);
+router.post('/login', LoginController.login);
+router.get('/users', UserController.listUser);
 
-//listar todos os usuarios
-router.get('/users', UserController.listUser)
+//posts: ----------------------------------------------
+router.post('/posts/create', PostController.createPost);
+router.get('/posts/list', PostController.listAllPosts);
+router.put('/posts/:post_id/edit', PostController.editPost);
+router.put('/posts/:post_id/delete', PostController.deletePost);
 
+//localizacao: ------------------------------------------
+router.get('/users/location', LocationController.listCoordinates);
 
-//faer logout
+//fazer logout
 //ver posts
 //criar posts
 //editar posts
@@ -26,8 +33,6 @@ router.get('/users', UserController.listUser)
 //notificacoes de seguidores
 //visualizar perfil do usuario
 //pesquisar posts ou usuarios
-//ranking de usuariosq
-
-router.get('/', (req, res) => {return res.send('funcionando')})
+//ranking de usuarios
 
 module.exports = router;

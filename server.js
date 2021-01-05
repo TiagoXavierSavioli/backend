@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const config = require('config');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
-const router = require('./src/Utils/routes/users');
+const router = require('./src/Utils/router');
 
 const app = express();
 

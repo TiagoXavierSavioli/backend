@@ -18,9 +18,8 @@ module.exports = {
                 username: username
             })
             if(!validPassword) {
-                return res.status(400).json(
-                    res.send(JSON.stringify('invalid password'))
-                )
+                return res.status(400).json({message: 'invalid password'})
+                
             }
             
             const loggedIn = validPassword
