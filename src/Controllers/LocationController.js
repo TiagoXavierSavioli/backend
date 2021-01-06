@@ -1,6 +1,6 @@
-const { get } = require('mongoose');
 const Location = require('../Models/Location');
-const Post = require('../Models/Post');
+const User = require('../Models/User');
+
 
 module.exports = {
     async FistCoordinates (req, res) {
@@ -21,27 +21,29 @@ module.exports = {
         }
     },
 
-    async updateCoordinates (req, res) {
-        const { user } = req.headers
-        const { latitude, longitude } = req.body
+    async ListProximCoordinates (req, res) {
+        const { latitude, longitude } = req.headers
 
-        try{
-            const newCoordinates = await Location.findOneAndUpdate({
-                user: user,
-                latitude: latitude,
-                longitude: longitude
+        latitude
+
+        try {
+            const CompareCoordinates = await Location.find({latitude, longitude})
+
+            return res.status(200).send({
+                message: 'locations finded sucessfully',
+                data: CompareCoordinates
             })
 
-            return res.status(200).send({ message: 'new coordinates registered', data: newCoordinates })
 
-        } catch(err) {
-            return res.status(400).send(err)
+        }catch(err){
+           return res.status(400).send(err)
         }
     },
 
-    async listCoordinates(req, res) {
+    async ListAllCoordinates ( req, res) {
         try {
             const allCoordinates = await Location.find()
+            .populate('user')
 
             return res.status(200).send({
                 message: 'listed all coordinates',

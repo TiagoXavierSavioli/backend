@@ -6,10 +6,9 @@ const LocationController = require('../Controllers/LocationController');
 
 const router = Router();
 
-//usuario: ------------------------------------------
+//login/ cadastro: ------------------------------------------
 router.post('/account/register', UserController.createUser);
 router.post('/account/login', LoginController.login);
-router.get('/users', UserController.listUser);
 
 //posts: ----------------------------------------------
 router.post('/posts/create', PostController.createPost);
@@ -17,8 +16,15 @@ router.get('/posts/list', PostController.listAllPosts);
 router.put('/posts/:post_id/edit', PostController.editPost);
 router.put('/posts/:post_id/delete', PostController.deletePost);
 
-//localizacao: ------------------------------------------
-router.get('/users/location', LocationController.listCoordinates);
+//usuario: ------------------------------------------
+
+router.get('/users', UserController.listUser);
+router.get('/users/find', UserController.findUser);
+
+//coordinates
+router.post('/users/location', LocationController.FistCoordinates);
+router.get('/users/location/list/proxim', LocationController.ListProximCoordinates);
+router.get('/users/location/list', LocationController.ListAllCoordinates);
 
 //fazer logout
 //ver posts
