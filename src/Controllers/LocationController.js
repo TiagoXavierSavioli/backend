@@ -8,13 +8,24 @@ module.exports = {
         const { latitude, longitude } = req.body
 
         try{
-            const newCoordinates = await Location.create({
-                latitude,
-                longitude,
+
+            const userAlreadyExists = await User.findOne({
                 user
             })
-
-            return res.status(200).send({ message: 'success', data: newCoordinates })
+            if (userAlreadyExists) {
+                const updateCoordinates = await Location.update({
+                    latitude,
+                    longitude,
+                })
+                return res.status(200).send({ message: 'cordinates updated sucessfully', data: updateCoordinates })
+            } else {
+                const newCoordinates = await Location.create({
+                    latitude,
+                    longitude,
+                    user
+                })
+                return res.status(200).send({ message: 'coordinates created sucessfully', data: newCoordinates })
+            }
 
         } catch(err) {
             return res.status(400).send(err)
