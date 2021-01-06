@@ -1,5 +1,4 @@
 const Location = require('../Models/Location');
-const User = require('../Models/User');
 
 
 module.exports = {
@@ -9,11 +8,11 @@ module.exports = {
 
         try{
 
-            const userAlreadyExists = await User.findOne({
+            const userAlreadyExists = await Location.findOne({
                 user
             })
             if (userAlreadyExists) {
-                const updateCoordinates = await Location.update({
+                const updateCoordinates = await Location.updateOne({
                     latitude,
                     longitude,
                 })
