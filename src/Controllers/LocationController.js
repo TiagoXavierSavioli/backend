@@ -10,8 +10,17 @@ module.exports = {
             const userAlreadyExists = await Location.findOne({
                 user
             })
+
+            if (latitude == null) return res.status(200).send({
+                message: 'not possible refreash your latitude'
+            })
+            if (longitude == null) return res.status(200).send({
+                message: 'not possible refresh your longitude'
+            })
+
             if (userAlreadyExists) {
                 const updateCoordinates = await Location.updateOne({
+                    user,
                     latitude,
                     longitude,
                 })
