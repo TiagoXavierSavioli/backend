@@ -6,16 +6,12 @@ module.exports = {
         const { user, latitude, longitude } = req.body
 
         try{
-
+            if (latitude == null, longitude == null) return res.status(200).send({
+                message: 'not possible refreash your location'
+            })
+            
             const userAlreadyExists = await Location.findOne({
                 user
-            })
-
-            if (latitude == null) return res.status(200).send({
-                message: 'not possible refreash your latitude'
-            })
-            if (longitude == null) return res.status(200).send({
-                message: 'not possible refresh your longitude'
             })
 
             if (userAlreadyExists) {
