@@ -3,8 +3,7 @@ const Location = require('../Models/Location');
 
 module.exports = {
     async FistCoordinates (req, res) {
-        const { user } = req.headers
-        const { latitude, longitude } = req.body
+        const { user, latitude, longitude } = req.body
 
         try{
 
