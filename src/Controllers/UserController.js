@@ -19,7 +19,7 @@ module.exports = {
             const userAlreadyExists = await User.findOne({
                 username
             })
-            if (userAlreadyExists)return res.status(400).send({
+            if (userAlreadyExists)return res.status(200).send({
                 message: 'This user already exists, try another username'
             })
 
