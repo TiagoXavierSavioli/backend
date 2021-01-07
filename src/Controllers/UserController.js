@@ -35,10 +35,7 @@ module.exports = {
                 message: 'you have to be at least 10 years old to create your account'
             })
 
-            if(age.length > 2)return res.status(400).send({
-                message: 'it looks like you typed your age wrong'
-            })
-            if(age.length < 2)return res.status(400).send({
+            if(age.length != 2)return res.status(400).send({
                 message: 'it looks like you typed your age wrong'
             })
             
