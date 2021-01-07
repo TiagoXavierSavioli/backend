@@ -23,19 +23,19 @@ module.exports = {
                 message: 'This user already exists, try another username'
             })
 
-            if (username.length < 4) return res.status(400).send({
+            if (username.length < 4) return res.status(200).send({
                 message: 'the username must be at least 6 characters'
             })
 
-            if(password.length < 6)return res.status(400).send({
+            if(password.length < 6)return res.status(200).send({
                 message: 'the password must be at least 6 characters'
             })
 
-            if(age < 10)return res.status(400).send({
+            if(age < 10)return res.status(200).send({
                 message: 'you have to be at least 10 years old to create your account'
             })
 
-            if(age.length != 2)return res.status(400).send({
+            if(age.length != 2)return res.status(200).send({
                 message: 'it looks like you typed your age wrong'
             })
             
