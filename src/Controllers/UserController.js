@@ -23,7 +23,7 @@ module.exports = {
                 message: 'This user already exists, try another username'
             })
 
-            if (username.length < 6) return res.status(400).send({
+            if (username.length < 4) return res.status(400).send({
                 message: 'the username must be at least 6 characters'
             })
 
@@ -34,6 +34,14 @@ module.exports = {
             if(age < 10)return res.status(400).send({
                 message: 'you have to be at least 10 years old to create your account'
             })
+
+            if(age.length > 2)return res.status(400).send({
+                message: 'it looks like you typed your age wrong'
+            })
+            if(age.length < 2)return res.status(400).send({
+                message: 'it looks like you typed your age wrong'
+            })
+            
             const createdUser = await User.create({
                 username,
                 password,
