@@ -19,19 +19,19 @@ module.exports = {
             const userAlreadyExists = await User.findOne({
                 username
             })
-            if (userAlreadyExists) return res.status(200).send({
+            if (userAlreadyExists)return res.status(400).send({
                 message: 'This user already exists, try another username'
             })
 
-            if (username.length < 6) return res.status(200).send({
+            if (username.length < 6) return res.status(400).send({
                 message: 'the username must be at least 6 characters'
             })
 
-            if(password.length < 6)return res.status(200).send({
+            if(password.length < 6)return res.status(400).send({
                 message: 'the password must be at least 6 characters'
             })
 
-            if(age < 10)return res.status(200).send({
+            if(age < 10)return res.status(400).send({
                 message: 'you have to be at least 10 years old to create your account'
             })
             const createdUser = await User.create({
@@ -77,7 +77,7 @@ module.exports = {
             .populate('user')
     
             if(!findedUser) {
-                return res.status(400).json({message: 'user does not exist'})
+                return res.status(400).json({message: 'user does not exists'})
             }
 
             return res.status(200).send({

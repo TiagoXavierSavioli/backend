@@ -14,7 +14,7 @@ const Schema = new mongoose.Schema({
         required: true
     },
     age: {
-        type: Number,
+        type: String,
         required: true
     },
     description: {
@@ -24,7 +24,7 @@ const Schema = new mongoose.Schema({
         type: String,
     },
     phone: {
-        type: Number,
+        type: String,
     },
     site: {
         type: String,
