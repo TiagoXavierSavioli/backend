@@ -21,6 +21,7 @@ router.delete('/posts/delete', PostController.deletePost);
 router.get('/users', UserController.listUser);
 router.get('/users/find', UserController.findUser);
 router.post('/users/edit', UserController.editUser);
+router.get('/users/verifyExist', UserController.verifyUserExists);
 
 //coordinates
 router.post('/users/location', LocationController.FistCoordinates);

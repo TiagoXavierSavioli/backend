@@ -1,3 +1,4 @@
+const { populate } = require('../Models/User');
 const User = require('../Models/User');
 
 module.exports = {
@@ -160,4 +161,22 @@ module.exports = {
         }
 
     },
+
+    async verifyUserExists(req, res){
+        const { username } = req.body
+
+        try {
+            const userExists = await User.findOne({username})
+            .populate('user')
+            if(userExists)return res.status(400).send('this user already exists')
+
+            return res.status(200).send({
+                message: "correct typed user",
+                data: userExists
+            })
+
+        } catch(err){
+            return res.status(400).send(err)
+        }
+    }
 }
