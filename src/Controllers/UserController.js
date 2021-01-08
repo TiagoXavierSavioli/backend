@@ -169,12 +169,12 @@ module.exports = {
             const findedUser = await User.findOne({username})
 
             if(!findedUser) {
-                return res.status(200).json({message: 'user is valid', data: findedUser})
+                return res.status(200).send({message: 'user is valid', data: findedUser})
             }
 
             
             if(findedUser) {
-                return res.status(200).json({message: 'user does exists' ,data: findedUser})
+                return res.status(200).send({message: 'user does exists' ,data: findedUser})
             }
             
         } catch(err){
