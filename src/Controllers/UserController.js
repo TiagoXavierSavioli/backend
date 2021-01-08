@@ -26,7 +26,7 @@ module.exports = {
                 message: 'the username must be at least 6 characters'
             })
 
-            if(password.length < 6)return res.status(400).send({
+            if(password.length < 4)return res.status(400).send({
                 message: 'the password must be at least 6 characters'
             })
             
