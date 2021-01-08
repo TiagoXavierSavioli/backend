@@ -42,11 +42,7 @@ module.exports = {
                 site,
                 relationship,
             })
-
-            return res.status(200).send({
-                message: 'user created',
-                data: createdUser
-            })
+            return res.status(200).json({message: `user: ${username} created`, data: createdUser}, res.send(createdUser))
         } catch(err) {
             return res.status(400).send(err)
         }
