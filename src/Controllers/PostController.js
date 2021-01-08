@@ -45,11 +45,16 @@ module.exports = {
     },
     
     async deletePost(req, res) {
-        const { post_id } = req.params
+        const { post_id, user_id } = req.headers
 
         try {
-            const deletedPost = await Post.findById(post_id)
-            .populate('user')
+            const belongsToUser = await Post.findOne({ user: user_id })
+            if(!belongsToUser) return res.status(400).send('operation not allowed')
+
+            const postExists = await Post.findById(post_id)
+            if(!postExists)return res.status(400).send('post does not exist')
+
+            const deletedPost = await Post.findByIdAndDelete(post_id)
     
             return res.status(200).send({
                 message: 'post deleted sucessfully',
@@ -64,6 +69,27 @@ module.exports = {
     },
     
     async editPost(req, res) {
+        const { post_id, user_id } = req.headers
+        const { description }= req.body
+
+        try {
+            const postExists = await Post.findById(post_id)
+            if(!postExists)return res.status(400).send('post does not exist')
+
+            const belongsToUser = await Post.findOne({ user: user_id })
+            if(!belongsToUser) return res.status(400).send('operation not allowed')
+
+            const editPost = await Post.findByIdAndUpdate(post_id, {
+                description
+            })
+            return res.status(200).send({
+                message: "Updated Sucessfuly",
+                data: editPost
+            })
+
+        }catch(err){
+            return res.status(400).send(err)
+        }
 
     },
 

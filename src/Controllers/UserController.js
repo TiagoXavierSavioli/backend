@@ -12,22 +12,21 @@ module.exports = {
             phone,
             site,
             relationship,
-            birthday
         } = req.body
 
         try {
             const userAlreadyExists = await User.findOne({
                 username
             })
-            if (userAlreadyExists)return res.status(200).send({
+            if (userAlreadyExists)return res.status(400).send({
                 message: 'This user already exists, try another username'
             })
 
-            if (username.length < 4) return res.status(200).send({
+            if (username.length < 4) return res.status(400).send({
                 message: 'the username must be at least 6 characters'
             })
 
-            if(password.length < 6)return res.status(200).send({
+            if(password.length < 6)return res.status(400).send({
                 message: 'the password must be at least 6 characters'
             })
             
@@ -41,7 +40,6 @@ module.exports = {
                 phone,
                 site,
                 relationship,
-                birthday
             })
 
             return res.status(200).send({
@@ -83,6 +81,81 @@ module.exports = {
             })
     
         }catch(err) {
+            return res.status(400).send(err)
+        }
+
+    },
+
+    async editUser(req, res) {
+        const { user_id } = req.headers
+        const {
+            username,
+            password,
+            description,
+            name,
+            age,
+            email,
+            phone,
+            site,
+            relationship,
+        }= req.body
+
+        try {
+            const userExists = await User.findById(user_id)
+            if(!userExists)return res.status(400).send('user does not exist')
+
+            if(username != null){
+                await User.findByIdAndUpdate(user_id, {
+                    username
+                })
+            }
+            if(password != null){
+                await User.findByIdAndUpdate(user_id, {
+                    password
+                })
+            }
+            if(description != null){
+                await User.findByIdAndUpdate(user_id, {
+                    description
+                })
+            }
+            if(name != null){
+                await User.findByIdAndUpdate(user_id, {
+                    name
+                })
+            }
+            if(age != null){
+                await User.findByIdAndUpdate(user_id, {
+                    age
+                })
+            }
+            if(email != null){
+                await User.findByIdAndUpdate(user_id, {
+                    email
+                })
+            }
+            if(phone != null){
+                await User.findByIdAndUpdate(user_id, {
+                    phone
+                })
+            }
+            if(site != null){
+                await User.findByIdAndUpdate(user_id, {
+                    site
+                })
+            }
+            if(relationship !== null){
+                await User.findByIdAndUpdate(user_id, {
+                    relationship
+                })
+            }
+
+            return res.status(200).send({
+                message: "Updated all Sucessfuly",
+                data: userExists
+            })
+
+        }catch(err){
             return res.status(400).send(err)
         }
 

@@ -13,13 +13,14 @@ router.post('/account/login', LoginController.login);
 //posts: ----------------------------------------------
 router.post('/posts/create', PostController.createPost);
 router.get('/posts/list', PostController.listAllPosts);
-router.put('/posts/:post_id/edit', PostController.editPost);
-router.put('/posts/:post_id/delete', PostController.deletePost);
+router.put('/posts/edit', PostController.editPost);
+router.delete('/posts/delete', PostController.deletePost);
 
 //usuario: ------------------------------------------
 
 router.get('/users', UserController.listUser);
 router.get('/users/find', UserController.findUser);
+router.post('/users/edit', UserController.editUser);
 
 //coordinates
 router.post('/users/location', LocationController.FistCoordinates);
