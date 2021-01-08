@@ -7,6 +7,12 @@ module.exports = {
             password,
             name,
             age,
+            description,
+            email,
+            phone,
+            site,
+            relationship,
+            birthday
         } = req.body
 
         try {
@@ -30,6 +36,12 @@ module.exports = {
                 password,
                 name,
                 age,
+                description,
+                email,
+                phone,
+                site,
+                relationship,
+                birthday
             })
 
             return res.status(200).send({
