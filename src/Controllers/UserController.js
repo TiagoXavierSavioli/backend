@@ -5,6 +5,8 @@ module.exports = {
         const {
             username,
             password,
+            name,
+            age,
         } = req.body
 
         try {
@@ -26,6 +28,8 @@ module.exports = {
             const createdUser = await User.create({
                 username,
                 password,
+                name,
+                age,
             })
 
             return res.status(200).send({

@@ -30,9 +30,6 @@ const Schema = new mongoose.Schema({
     relationship: {
         type: String,
     },
-    birthday: {
-        type: String,
-    },
 }, {
     timestamps: true,
     toJSON: { virtuals: true },
