@@ -73,7 +73,7 @@ module.exports = {
             .populate('user')
     
             if(!findedUser) {
-                return res.status(400).json({message: 'user does not exists'})
+                return res.status(400).send({message: 'user does not exists'})
             }
 
             return res.status(200).send({
