@@ -5,8 +5,6 @@ module.exports = {
         const {
             username,
             password,
-            name,
-            age,
         } = req.body
 
         try {
@@ -24,20 +22,10 @@ module.exports = {
             if(password.length < 6)return res.status(200).send({
                 message: 'the password must be at least 6 characters'
             })
-
-            if(age < 10)return res.status(200).send({
-                message: 'you have to be at least 10 years old to create your account'
-            })
-
-            if(age.length != 2)return res.status(200).send({
-                message: 'it looks like you typed your age wrong'
-            })
             
             const createdUser = await User.create({
                 username,
                 password,
-                name,
-                age,
             })
 
             return res.status(200).send({
