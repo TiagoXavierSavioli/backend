@@ -174,7 +174,7 @@ module.exports = {
 
             
             if(findedUser) {
-                return res.status(400).json({message: 'user does exists' ,data: findedUser})
+                return res.status(200).json({message: 'user does exists' ,data: findedUser})
             }
             
         } catch(err){
