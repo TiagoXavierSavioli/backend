@@ -166,16 +166,16 @@ module.exports = {
         const { username } = req.body
 
         try {
-            const userAlreadyExists = await User.findOne({username})
+            const findedUser = await User.findOne({username})
 
-            if (!userAlreadyExists)return res.status(200).send({
-                message: 'this username is valid',
-                data:userAlreadyExists
-            })
+            if(!findedUser) {
+                return res.status(400).json({message: 'user is valid'})
+            }
 
-            if (userAlreadyExists)return res.status(400).send({
-                message: 'this username is invalid, try again',
-            })
+            
+            if(findedUser) {
+                return res.status(400).json({message: 'user does exists'})
+            }
             
         } catch(err){
             return res.status(400).send(err)
