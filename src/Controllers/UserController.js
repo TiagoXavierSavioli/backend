@@ -172,6 +172,10 @@ module.exports = {
             if (userAlreadyExists)return res.status(400).send({
                 message: 'This user already exists, try another username'
             })
+
+            if (!userAlreadyExists)return res.status(200).send({
+                message: 'this username is valid'
+            })
             
         } catch(err){
             return res.status(400).send(err)
