@@ -167,11 +167,14 @@ module.exports = {
 
         try {
             const userAlreadyExists = await User.findOne({username})
-            .populate('user')
 
             if (!userAlreadyExists)return res.status(200).send({
                 message: 'this username is valid',
                 data:userAlreadyExists
+            })
+
+            if (userAlreadyExists)return res.status(400).send({
+                message: 'this username is invalid, try again',
             })
             
         } catch(err){
