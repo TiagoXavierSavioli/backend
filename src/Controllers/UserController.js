@@ -149,7 +149,11 @@ module.exports = {
                     relationship
                 })
             }
-            return res.status(200).json({message: `user: ${username} udated sucess`, data: userExists}, res.send(userExists))
+
+            return res.status(200).send({
+                message: "Updated all Sucessfuly",
+                data: userExists
+            })
 
         }catch(err){
             return res.status(400).send(err)
