@@ -87,7 +87,7 @@ module.exports = {
     },
 
     async editUser(req, res) {
-        const { user_id } = req.headers
+        const { user_id } = req.body
         const {
             username,
             password,
