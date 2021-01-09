@@ -15,4 +15,4 @@ const Schema = new mongoose.Schema({
 
 
 })
-module.exports = mongoose.model('Like', Schema)
+module.exports = mongoose.model('Likes', Schema)
