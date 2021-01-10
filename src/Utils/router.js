@@ -5,6 +5,7 @@ const PostController = require('../Controllers/PostController');
 const LocationController = require('../Controllers/LocationController');
 const ProfileController = require('../Controllers/ProfileController');
 const LikeController = require('../Controllers/LikeController');
+//const ComentController = require('../Controllers/ComentController');
 
 const router = Router();
 
@@ -18,6 +19,7 @@ router.post('/posts/likes', LikeController.likePost);
 //remover like do post
 router.post('/posts/dislikes', LikeController.dislikePost);
 //comentar post
+//router.post('/posts/coments', ComentController.ComentPost);
 //remover comentrio do post
 //criar posts
 router.post('/posts/create', PostController.createPost);
