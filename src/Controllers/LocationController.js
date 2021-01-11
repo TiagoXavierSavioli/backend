@@ -14,6 +14,15 @@ module.exports = {
                 user
             })
 
+            if (!userAlreadyExists) {
+                const createCoordinates = await Location.create({
+                    user,
+                    latitude,
+                    longitude,
+                })
+                return res.status(200).send({ message: 'cordinates updated sucessfully', data: createCoordinates })
+            }
+
             if (userAlreadyExists) {
                 const updateCoordinates = await Location.updateOne({
                     user,
