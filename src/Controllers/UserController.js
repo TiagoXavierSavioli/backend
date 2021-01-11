@@ -65,7 +65,7 @@ module.exports = {
         const {username} = req.body
 
         try {
-            const findedUser = await User.findOne({username})
+            const findedUser = await User.findOne({username: username})
             .populate('user')
     
             if(!findedUser) {
