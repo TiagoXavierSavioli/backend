@@ -5,6 +5,10 @@ const Schema = new mongoose.Schema({
         type: String,
         required: true
     },
+    profileType: {
+        type: String,
+        required: true
+    },
     password: {
         type: String,
         required: true
@@ -15,16 +19,13 @@ const Schema = new mongoose.Schema({
     age: {
         type: String,
     },
-    description: {
-        type: String,
-    },
-    phone: {
-        type: String,
-    },
     relationship: {
         type: String,
     },
-    image: {
+    live: {
+        type: String,
+    },
+    gender: {
         type: String,
     },
 }, {
