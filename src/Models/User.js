@@ -18,16 +18,13 @@ const Schema = new mongoose.Schema({
     description: {
         type: String,
     },
-    email: {
-        type: String,
-    },
     phone: {
         type: String,
     },
-    site: {
+    relationship: {
         type: String,
     },
-    relationship: {
+    image: {
         type: String,
     },
 }, {
