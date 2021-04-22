@@ -30,6 +30,8 @@ router.put('/posts/edit', PostController.editPost);
 // deletar posts
 router.delete('/posts/delete', PostController.deletePost);
 
+router.get('/posts/user_post', PostController.listUserPosts);
+
 //usuario: ------------------------------------------
 
 router.get('/users', UserController.listUser);

@@ -1,3 +1,4 @@
+const { populate } = require('../Models/Post')
 const Post = require('../Models/Post')
 const User = require('../Models/User')
 
@@ -86,6 +87,57 @@ module.exports = {
             })
 
         }catch(err){
+            return res.status(400).send(err)
+        }
+
+    },
+
+    async listUserPosts(req, res) {
+        const {username} = req.body
+        try {
+            const findedUser = await User.findOne({username: username})
+
+            if(!findedUser) {
+                return res.status(400).send({
+                    message: 'user does not exists',
+                    data: findedUser
+                })
+            }
+            const userId = findedUser.id
+
+            const userPosts = await Post.find({user: userId})
+
+            return res.status(200).send({
+                message: 'user posts',
+                data: userPosts
+            })
+
+        }catch(err) {
+
+            return res.status(400).send(err)
+        }
+
+    },
+    async findUser(req, res) {
+        const {username} = req.body
+
+        try {
+            const findedUser = await User.findOne({username: username})
+            .populate('user')
+    
+            if(!findedUser) {
+                return res.status(400).send({
+                    message: 'user does not exists',
+                    data: findedUser
+                })
+            }
+
+            return res.status(200).send({
+                message: 'user finded sucessfully',
+                data: findedUser
+            })
+    
+        }catch(err) {
             return res.status(400).send(err)
         }
 
