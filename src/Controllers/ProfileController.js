@@ -16,12 +16,66 @@ module.exports = {
             })
 
             return res.status(200).send({
-                messafe: 'User found',
+                message: 'User found',
                 userInfo,
                 userPosts
             })
         }catch(err){
             return res.status(400).send(err)
         }
-    }    
+    },
+    
+    async followUser(req, res){
+        const {id} = req.params
+        const {user_id } = req.body
+
+        if(user_id !== id) {
+            try{
+                const user = await User.findById(id)
+                const currentUser = await User.findById(user_id)
+
+                if(!user.fans.includes(user_id)){
+                    await user.updateOne({$push: { fans: user_id } })
+                    await currentUser.updateOne({$push: { followings: user_id } })
+
+                    res.status(200).json('user has been followed')
+                }else{
+                    res.status(403).json('you already follow this user')
+                }
+
+            }catch(err){
+                res.status(500).json(err)
+            }
+
+        }else{
+            res.status(403).json('you cant follow yourself')
+        }
+    },
+
+    async unfollowUser(req, res){
+        const {id} = req.params
+        const {user_id } = req.body
+
+        if(user_id !== id) {
+            try{
+                const user = await User.findById(id)
+                const currentUser = await User.findById(user_id)
+
+                if(user.fans.includes(user_id)){
+                    await user.updateOne({$pull: { fans: user_id } })
+                    await currentUser.updateOne({$pull: { followings: user_id } })
+
+                    res.status(200).json('user has been unfollowed')
+                }else{
+                    res.status(403).json('you dont unfollow this user')
+                }
+
+            }catch(err){
+                res.status(500).json(err)
+            }
+
+        }else{
+            res.status(403).json('you cant follow yourself')
+        }
+    }
 }

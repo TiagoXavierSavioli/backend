@@ -1,11 +1,11 @@
-const { populate } = require('../Models/Post')
 const Post = require('../Models/Post')
 const User = require('../Models/User')
 
 module.exports = {
     async createPost(req, res) {
         const {
-            description
+            description,
+            img
         } = req.body
 
         const { user } = req.headers
@@ -13,6 +13,7 @@ module.exports = {
         try {
             const newPost = await Post.create({
                 description,
+                img,
                 user
             })
 
@@ -118,29 +119,63 @@ module.exports = {
         }
 
     },
-    async findUser(req, res) {
-        const {username} = req.body
+    async likePost(req, res) {
+        const {id} = req.params
+        const {user_id } = req.body
+        try{
+            const post = await Post.findById(id)
+            if(!post.likes.includes(user_id)){
+                await post.updateOne({ $push: { likes: user_id }})
+                res.status(200).json('the post has been liked')
 
-        try {
-            const findedUser = await User.findOne({username: username})
-            .populate('user')
-    
-            if(!findedUser) {
-                return res.status(400).send({
-                    message: 'user does not exists',
-                    data: findedUser
-                })
+            if(post.hates.includes(user_id)){
+                await post.updateOne({ $pull: { hates: user_id }})
+                res.status(200).json('the post has been liked')
+            } 
+            }else{
+                await post.updateOne({ $pull: { likes: user_id}})
+                res.status(200).json('the post has been disliked')
             }
-
-            return res.status(200).send({
-                message: 'user finded sucessfully',
-                data: findedUser
-            })
-    
-        }catch(err) {
-            return res.status(400).send(err)
+        }catch(err){
+            res.status(500).json(err)
         }
-
     },
+
+    async hatePost(req, res) {
+        const {id} = req.params
+        const {user_id } = req.body
+        try{
+            const post = await Post.findById(id)
+            if(!post.hates.includes(user_id)){
+                await post.updateOne({ $push: { hates: user_id }})
+                res.status(200).json('the post has been hated')
+
+            if(post.likes.includes(user_id)){
+                await post.updateOne({ $pull: { likes: user_id }})
+                res.status(200).json('the post has been liked')
+            }  
+            }else{
+                await post.updateOne({ $pull: { hates: user_id}})
+                res.status(200).json('the post has been dishated')
+            }
+        }catch(err){
+            res.status(500).json(err)
+        }
+    },
+
+    async timelinePosts(req, res) {
+        try{
+            const currentUser = await User.findById(req.body.userId)
+            const userPosts = await Post.find({user: currentUser._id})
+            const friendPosts = await Promise.all(
+                currentUser.followings.map((friendId) => {
+                    return Post.find({userId: friendId })
+                })
+            )
+            res.json(userPosts.concat(...friendPosts))
+        }catch(err){
+            res.status(500).json(err)
+        }
+    }
 
 }

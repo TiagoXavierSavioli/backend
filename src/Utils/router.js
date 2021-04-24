@@ -4,7 +4,6 @@ const UserController = require('../Controllers/UserController');
 const PostController = require('../Controllers/PostController');
 const LocationController = require('../Controllers/LocationController');
 const ProfileController = require('../Controllers/ProfileController');
-const LikeController = require('../Controllers/LikeController');
 //const ComentController = require('../Controllers/ComentController');
 
 const router = Router();
@@ -14,10 +13,10 @@ router.post('/account/register', UserController.createUser);
 router.post('/account/login', LoginController.login);
 
 //posts: ----------------------------------------------
+router.get('/timeline', PostController.timelinePosts)
 //like do post
-router.post('/posts/likes', LikeController.likePost);
-//remover like do post
-router.post('/posts/dislikes', LikeController.dislikePost);
+router.put('/:id/like', PostController.likePost)
+router.put('/:id/hate', PostController.hatePost)
 //comentar post
 //router.post('/posts/coments', ComentController.ComentPost);
 //remover comentrio do post
@@ -49,7 +48,10 @@ router.get('/users/location/list', LocationController.ListAllCoordinates);
 //visualizar perfil do usuario
 router.get('/profile', ProfileController.getProfile);
 //pesquisar posts ou usuarios
-
+//seguir usuario
+router.put('/:id/follow', ProfileController.followUser);
+router.put('/:id/unfollow', ProfileController.unfollowUser);
+//deixar de seguir usuario
 
 
 

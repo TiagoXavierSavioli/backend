@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const Schema = new mongoose.Schema({
     description: {
+        type: String,
+        max: 500
+    },
+    img: {
         type: String
     },
     user: {
@@ -9,9 +13,13 @@ const Schema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    likes: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-    }],
+    likes: {
+        type: Array,
+        default: []
+    },
+    hates: {
+        type: Array,
+        default: []
+    },
 })
 module.exports = mongoose.model('Post', Schema)
