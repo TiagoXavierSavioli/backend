@@ -54,7 +54,7 @@ module.exports = {
     },
 
     async findUser(req, res) {
-        const {username} = req.body
+        const {username} = req.params
 
         try {
             const findedUser = await User.findOne({username: username})
