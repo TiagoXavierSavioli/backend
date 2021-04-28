@@ -31,6 +31,15 @@ const Schema = new mongoose.Schema({
         type: Array,
         default: []
     },
+    popularity: {
+        type: String,
+    },
+    points: {
+        type: String,
+    },
+    Time: {
+        type: Number,
+    },
     isAdmin: {
         type: Boolean,
         default: false
