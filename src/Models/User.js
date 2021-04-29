@@ -36,6 +36,7 @@ const Schema = new mongoose.Schema({
     },
     points: {
         type: String,
+        default: 0
     },
     Time: {
         type: Number,
