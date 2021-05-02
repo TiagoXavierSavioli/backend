@@ -15,8 +15,8 @@ router.post('/account/login', LoginController.login);
 //posts: ----------------------------------------------
 router.get('/timeline', PostController.timelinePosts)
 //like do post
-router.put('/:id/like', PostController.likePost)
-router.put('/:id/hate', PostController.hatePost)
+router.put('/:id/:user_id/like', PostController.likePost)
+router.put('/:id/:user_id/hate', PostController.hatePost)
 //comentar post
 //router.post('/posts/coments', ComentController.ComentPost);
 //remover comentrio do post

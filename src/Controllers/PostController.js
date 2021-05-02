@@ -120,8 +120,7 @@ module.exports = {
 
     },
     async likePost(req, res) {
-        const {id} = req.params
-        const {user_id } = req.body
+        const {id, user_id} = req.params
         try{
             const post = await Post.findById(id)
             if(!post.likes.includes(user_id)){
@@ -142,8 +141,7 @@ module.exports = {
     },
 
     async hatePost(req, res) {
-        const {id} = req.params
-        const {user_id } = req.body
+        const {id, user_id} = req.params
         try{
             const post = await Post.findById(id)
             if(!post.hates.includes(user_id)){
