@@ -26,8 +26,7 @@ module.exports = {
     },
     
     async followUser(req, res){
-        const {id} = req.params
-        const {user_id } = req.body
+        const {id, user_id} = req.params
 
         if(user_id !== id) {
             try{

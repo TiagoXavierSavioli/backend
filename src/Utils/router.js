@@ -49,8 +49,8 @@ router.get('/users/location/list', LocationController.ListAllCoordinates);
 router.get('/profile', ProfileController.getProfile);
 //pesquisar posts ou usuarios
 //seguir usuario
-router.put('/:id/follow', ProfileController.followUser);
-router.put('/:id/unfollow', ProfileController.unfollowUser);
+router.put('/:id/:user_id/follow', ProfileController.followUser);
+router.put('/:id/:user_id/unfollow', ProfileController.unfollowUser);
 //deixar de seguir usuario
 
 
