@@ -39,12 +39,12 @@ router.post('/users/edit', UserController.editUser);
 router.get('/users/verifyExist', UserController.verifyUserExists);
 //fazer logout
 
-//coordinates: --------------------------------------
+//coordinates: ---------------------------------------
 router.post('/users/location', LocationController.FistCoordinates);
 router.get('/users/location/list/proxim', LocationController.ListProximCoordinates);
 router.get('/users/location/list', LocationController.ListAllCoordinates);
 
-//Profile: -----------------------------------------------------
+//Profile: -------------------------------------------
 //visualizar perfil do usuario
 router.get('/profile', ProfileController.getProfile);
 //pesquisar posts ou usuarios
