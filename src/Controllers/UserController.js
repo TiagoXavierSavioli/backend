@@ -1,4 +1,3 @@
-const { populate } = require('../Models/User');
 const User = require('../Models/User');
 const bcrypt = require('bcrypt')
 
@@ -54,10 +53,10 @@ module.exports = {
     },
 
     async findUser(req, res) {
-        const {username} = req.params
+        const username = req.body
 
         try {
-            const findedUser = await User.findOne({username: username})
+            const findedUser = await User.find({username: new RegExp(req.body.username,'gi')})
             .populate('user')
     
             if(!findedUser) {

@@ -2,14 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
 const morgan = require('morgan');
-const dotenv = require('dotenv');
 const router = require('./src/Utils/router');
-const http = require('http');
 const app = express();
-const server = http.createServer(app);
-const socket = require('socket.io')
+const server = require("http").createServer(app);
 
-// boorder parser middleware
 app.use(express.json());
 
 // connect to mongo db
@@ -34,4 +30,4 @@ app.use(router)
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => console.log(`Server running on port ${port}`))
+app.listen(port, () => console.log(`Server running on port ${port}`));

@@ -32,10 +32,10 @@ module.exports = {
         const allPosts = await Post.find()
         .populate('user')
 
-        return res.status(200).send({
-            message: 'all posts',
-            data: allPosts
-        })
+            return res.status(200).send({
+                message: 'all posts',
+                data: allPosts
+            })
 
         }catch(err) {
 
