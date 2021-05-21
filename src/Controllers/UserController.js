@@ -53,10 +53,8 @@ module.exports = {
     },
 
     async findUser(req, res) {
-        const username = req.body
-
         try {
-            const findedUser = await User.find({username: new RegExp(req.body.username,'gi')})
+            const findedUser = await User.find({username: new RegExp(req.params.username,'gi')})
             .populate('user')
     
             if(!findedUser) {

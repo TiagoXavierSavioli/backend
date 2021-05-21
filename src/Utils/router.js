@@ -34,7 +34,7 @@ router.get('/posts/user_post/:username', PostController.listUserPosts);
 //usuario: ------------------------------------------
 
 router.get('/users', UserController.listUser);
-router.get('/users/find', UserController.findUser);
+router.get('/users/find/:username', UserController.findUser);
 router.post('/users/edit', UserController.editUser);
 router.get('/users/verifyExist', UserController.verifyUserExists);
 //fazer logout
