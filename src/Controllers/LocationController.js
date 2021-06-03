@@ -56,7 +56,7 @@ module.exports = {
     async ListAllCoordinates ( req, res) {
         try {
             const allCoordinates = await Location.find()
-            //.populate('user')
+            .populate('user')
 
             return res.status(200).send({
                 message: 'listed all coordinates',
