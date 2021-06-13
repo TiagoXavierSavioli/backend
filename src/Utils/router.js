@@ -35,14 +35,13 @@ router.get('/posts/user_post/:username', PostController.listUserPosts);
 
 router.get('/users', UserController.listUser);
 router.get('/users/find/:username', UserController.findUser);
+router.get('/users/findbyid/:id', UserController.findUserById);
 router.post('/users/edit', UserController.editUser);
 router.get('/users/verifyExist', UserController.verifyUserExists);
 //fazer logout
 
 //coordinates: ---------------------------------------
-router.post('/users/location', LocationController.FistCoordinates);
-router.get('/users/location/list/proxim', LocationController.ListProximCoordinates);
-router.get('/users/location/list', LocationController.ListAllCoordinates);
+router.put('/users/location', LocationController.Coordinates);
 
 //Profile: -------------------------------------------
 //visualizar perfil do usuario

@@ -52,6 +52,18 @@ const Schema = new mongoose.Schema({
     name: {
         type: String,
         max: 50
+    },
+    latitude: {
+        type: Number,
+        default: 0.00000000000000000,
+    },
+    longitude: {
+        type: Number,
+        default: 0.00000000000000000,
+    },
+    online: {
+        type: Number,
+        default: 0
     }
 }, {
     timestamps: true,

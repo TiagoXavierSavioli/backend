@@ -74,6 +74,28 @@ module.exports = {
         }
 
     },
+    async findUserById(req, res) {
+        try {
+            const findedUser = await User.findById({_id:req.params.id})
+            .populate('user')
+    
+            if(!findedUser) {
+                return res.status(400).send({
+                    message: 'user does not exists',
+                    data: findedUser
+                })
+            }
+
+            return res.status(200).send({
+                message: 'user finded sucessfully',
+                data: findedUser
+            })
+    
+        }catch(err) {
+            return res.status(400).send(err)
+        }
+
+    },
 
     async editUser(req, res) {
         const { user_id } = req.body
