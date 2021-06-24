@@ -1,83 +1,12 @@
-const User = require('../Models/User');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs');
+
+const User = require('../Models/User/Users');
+const Followings = require('../Models/User/Followings');
 
 module.exports = {
-    async createUser(req, res) {
-        const {
-            username,
-            password,
-            email
-        } = req.body
-
-        try {
-
-            const userAlreadyExists = await User.findOne({
-                username
-            })
-            if (userAlreadyExists)return res.status(400).send({
-                message: 'This user already exists, try another username'
-            })
-
-            if (username.length < 4) return res.status(400).send({
-                message: 'the username must be at least 6 characters'
-            })
-
-            if(password.length < 4)return res.status(400).send({
-                message: 'the password must be at least 6 characters'
-            })
-            const salt = await bcrypt.genSalt(10)
-            const hashedPassword = await bcrypt.hash(password, salt)
-
-            const createdUser = await User.create({
-                username,
-                password: hashedPassword,
-                email
-            })
-            return res.status(200).json({message: `user: ${username} created`, data: createdUser}, res.send(createdUser))
-        } catch(err) {
-            return res.status(400).send(err)
-        }
-    },
-
-    async listUser(req, res) {
-        try {
-            const allUser = await User.find()
-
-            return res.status(200).send({
-                message: 'listed all users',
-                data: allUser
-            })
-        } catch(err) {
-            return res.status(400).send(err)
-        }
-    },
-
-    async findUser(req, res) {
-        try {
-            const findedUser = await User.find({username: new RegExp(req.params.username,'gi')})
-            .populate('user')
-    
-            if(!findedUser) {
-                return res.status(400).send({
-                    message: 'user does not exists',
-                    data: findedUser
-                })
-            }
-
-            return res.status(200).send({
-                message: 'user finded sucessfully',
-                data: findedUser
-            })
-    
-        }catch(err) {
-            return res.status(400).send(err)
-        }
-
-    },
     async findUserById(req, res) {
         try {
             const findedUser = await User.findById({_id:req.params.id})
-            .populate('user')
     
             if(!findedUser) {
                 return res.status(400).send({
@@ -96,69 +25,112 @@ module.exports = {
         }
 
     },
-
-    async editUser(req, res) {
-        const { user_id } = req.body
-        const {
-            username,
-            password,
-            description,
-            name,
-            age,
-            email,
-            phone,
-            site,
-            relationship,
-        }= req.body
-
+    async findUser(req, res) {
         try {
-            const userExists = await User.findById(user_id)
-            if(!userExists)return res.status(400).send('user does not exist')
-
-            if(username != null){
-                await User.findByIdAndUpdate(user_id, {
-                    username
-                })
-            }
-            if(password != null){
-                await User.findByIdAndUpdate(user_id, {
-                    password
-                })
-            }
-            if(relationship !== null){
-                await User.findByIdAndUpdate(user_id, {
-                    relationship
+            const findedUser = await User.find({username: new RegExp(req.params.username,'gi')}).populate('user')
+            if(!findedUser) {
+                return res.status(400).send({
+                    message: 'user does not exists',
+                    data: findedUser
                 })
             }
 
             return res.status(200).send({
-                message: "Updated all Sucessfuly",
-                data: userExists
+                message: 'user finded sucessfully',
+                data: findedUser
             })
+    
+        }catch(err) {
+            return res.status(400).send(err)
+        }
+
+    },
+    async followUser(req, res) {
+        const {userId2} = req.body
+        const {user} = req.headers
+        try{
+            const user1 = await User.findById(user)
+            const user2 = await User.findById(userId2)
+            if(!user1)return res.status(400).send({ message: 'user 1 does not exist' })
+            if(!user2)return res.status(400).send({ message: 'user 2 does not exist' })
+
+            if(user1&&user2){
+                const findedUser = await Followings.findOne({userId1: user, userId2: userId2})
+                if(findedUser){
+                    return res.status(400).send({ message: 'you just following this user' })
+                }else{
+                    const followUser = await Followings.create({
+                        userId1: user,
+                        userId2: userId2
+                    })
+
+                    return res.status(200).json({message: `follow user sucessfully`, data: followUser}, res.send(followUser))
+                }
+            }
+        }catch(err){
+            return res.status(400).send(err)
+        }
+    },
+
+        async unfollowUser(req, res) {
+        const {userId2,} = req.body
+        const {user} = req.headers
+        try{
+            const user1 = await User.findById(user)
+            const user2 = await User.findById(userId2)
+            if(!user1)return res.status(400).send({ message: 'user 1 does not exist' })
+            if(!user2)return res.status(400).send({ message: 'user 2 does not exist' })
+            
+            if(user1&&user2){
+                const findedUser = await Followings.findOne({userId1: user, userId2: userId2})
+                if(!findedUser){
+                    return res.status(400).send({ message: 'you do not following this user' })
+                }else{
+                    const unfollowUser = await findedUser.remove()
+
+                    return res.status(200).json({message: `unfollow user sucessfully`}, res.send(unfollowUser))
+                }                
+            }
 
         }catch(err){
             return res.status(400).send(err)
         }
-
     },
-
-    async verifyUserExists(req, res){
-        const { username } = req.body
-
+    
+    async listAllfollows(req, res) {
         try {
-            const findedUser = await User.findOne({username})
+            const allfollow = await Followings.find()
 
-            if(!findedUser) {
-                return res.status(200).send({message: 'user is valid', data: findedUser})
-            }
-
-            
-            if(findedUser) {
-                return res.status(200).send({message: 'user does exists' ,data: findedUser})
-            }
-            
-        } catch(err){
+            return res.status(200).send({
+                message: 'listed all follows',
+                data: allfollow
+            })
+        } catch(err) {
             return res.status(400).send(err)
         }
-    }
+    },
+    async listFollowings(req, res) {
+        try {
+            const allfollow = await Followings.find({userId1: req.params.id}).populate('userId2')
+
+            return res.status(200).send({
+                message: `listed all ${allfollow.length} users you following`,
+                data: allfollow
+            })
+        } catch(err) {
+            return res.status(400).send(err)
+        }
+    },
+    async listFans(req, res) {
+        try {
+            const allfollow = await Followings.find({userId2: req.params.id}).populate('userId1')
+
+            return res.status(200).send({
+                message: 'listed all users follow you',
+                data: allfollow
+            })
+        } catch(err) {
+            return res.status(400).send(err)
+        }
+    },
 }
