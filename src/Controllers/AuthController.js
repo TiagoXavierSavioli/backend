@@ -5,40 +5,29 @@ const User = require('../Models/User/Users');
 module.exports = {
     async login(req, res) {
         const { username, password } = req.body
-
-        try{
-            const validUsername = await User.findOne({
-                username: username
-            })
-            if(!validUsername) {
-                return res.status(400).json({message: 'user does not exist'})
-            }
-
-            const validPassword = await bcrypt.compare(password, validUsername.password)
-            if(!validPassword) {
-                return res.status(400).json({message: 'Wrong password'})
-            }
-            
-            const loggedIn = validUsername
-            console.log(loggedIn)
-            return res.status(200).json({message: 'success', data: loggedIn}, res.send(loggedIn))
-            
-        } catch(err) {
-            return res.status(400).json(err)
+        const validUsername = await User.findOne({
+            username: username
+        })
+        if(!validUsername) {
+            throw new Error('username already exists')
         }
+
+        const validPassword = await bcrypt.compare(password, validUsername.password)
+        if(!validPassword) {
+            throw new Error('wrong password')
+        }
+            
+        const loggedIn = validUsername
+        console.log(loggedIn)
+        return res.status(200).json({message: 'success', data: loggedIn}, res.send(loggedIn))
     },
 
     async verifyUserExists(req, res) {
-        try {
             const userFind = await User.findOne({username: req.params.username})
-            if(userFind)return res.status(400).send({
-                message: 'This user already exists, try another username'
-            })
+            if(userFind){
+                throw new Error('user already exists try another username')
+            }
             return res.status(200).json({message: `user: ${req.params.username} dont exists`})
-        }catch(err){
-            return res.status(400).send(err)
-        }
-
     },
 
     async createAccount(req, res) {
@@ -50,16 +39,14 @@ module.exports = {
 
         try {
 
-            const userAlreadyExists = await User.findOne({
-                username
-            })
-            if (userAlreadyExists)return res.status(400).send({
-                message: 'This user already exists, try another username'
-            })
+            const userAlreadyExists = await User.findOne({ username: username })
+            if (userAlreadyExists){
+                throw new Error('This user already exists, try another username')
+            }
 
-            if (username.length < 4) return res.status(400).send({
+            if (username.length < 4){
                 message: 'the username must be at least 4 characters'
-            })
+            }
 
             if(password.length < 4)return res.status(400).send({
                 message: 'the password must be at least 4 characters'

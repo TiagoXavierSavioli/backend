@@ -1,4 +1,5 @@
-const express = require('express');
+const express = require('express')
+require('express-async-errors');
 const mongoose = require('mongoose');
 const config = require('config');
 const morgan = require('morgan');
@@ -27,7 +28,17 @@ if(process.env.NODE_ENV === 'devolpment') {
 
 //use routes
 app.use(router)
-
+app.use((err, req, res, next) => {
+    if(err instanceof Error){
+        return res.status(400).json({
+            error: err.message
+        })
+    }
+    return res.status(500),json({
+        status: 'error',
+        message: 'Internal Server Error'
+    })
+})
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
