@@ -8,7 +8,7 @@ const router = Router();
 
 //Auth
 router.post('/account/register', AuthController.createAccount);
-router.get('/account/login', AuthController.login);
+router.post('/account/login', AuthController.login);
 router.get('/verifyExists/:username', AuthController.verifyUserExists);
 
 //User
