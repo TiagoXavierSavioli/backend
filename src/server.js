@@ -1,25 +1,17 @@
 const express = require('express')
 require('express-async-errors');
-const mongoose = require('mongoose');
-const config = require('config');
 const morgan = require('morgan');
-const router = require('./src/Utils/router');
+
+
+//routes
+const userRouter = require('./Utils/routes/user.js');
+const momentRouter = require('./Utils/routes/moments.js')
+
+require('./database')
+
+//app
 const app = express();
-const server = require("http").createServer(app);
-
 app.use(express.json());
-
-// connect to mongo db
-const db = config.get('mongoURI');
-mongoose
-    .connect(db, {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-    })
-    .then(() => console.log('mongodb is connected...'))
-    .catch((err) => console.log(err))
 
 // log route actions
 if(process.env.NODE_ENV === 'devolpment') {
@@ -27,7 +19,10 @@ if(process.env.NODE_ENV === 'devolpment') {
 }
 
 //use routes
-app.use(router)
+app.use(userRouter)
+app.use(momentRouter)
+
+
 app.use((err, req, res, next) => {
     if(err instanceof Error){
         return res.status(400).json({
