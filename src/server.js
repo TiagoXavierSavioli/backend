@@ -4,11 +4,11 @@ const morgan = require('morgan');
 
 
 //routes
-const userRouter = require('./src/Utils/routes/user.js');
-const momentRouter = require('./src/Utils/routes/moments.js')
-const coordinateRouter = require('./src/Utils/routes/Coordinates')
+const userRouter = require('./Utils/routes/user.js');
+const momentRouter = require('./Utils/routes/moments.js')
+const coordinateRouter = require('./Utils/routes/Coordinates')
 
-require('./src/database')
+require('./database')
 
 //app
 const app = express();
