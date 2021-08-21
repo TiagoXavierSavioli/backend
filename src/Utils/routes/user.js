@@ -7,6 +7,6 @@ const userRouter = Router();
 userRouter.post('/account/register', AuthController.store);
 userRouter.post('/account/login', AuthController.index);
 userRouter.get('/verifyExists/:username', AuthController.verifyUserExists);
-userRouter.get('/find', AuthController.find);
+userRouter.get('/', AuthController.find);
 
 module.exports = userRouter

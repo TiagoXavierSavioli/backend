@@ -6,12 +6,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon ./server.js",
-    "start": "node ./server",
+    "start": "node ./src/server",
     "dev": "nodemon src/server.js"
   },
+
+  "engines": {
+    "node": "12.14.1"
+  },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
+  
   "dependencies": {
     "@nozbe/watermelondb": "^0.22.0",
     "axios": "^0.21.1",

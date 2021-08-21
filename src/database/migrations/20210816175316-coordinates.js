@@ -2,23 +2,25 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('users', {
+    return queryInterface.createTable('coordinates', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
       },
-      username: {
-        type: Sequelize.STRING(30),
-        allowNull: false
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {model: 'users', key: 'id'},
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'  
       },
-      password: {
-        type: Sequelize.STRING(100),
-        allowNull: false
+      latitude: {
+        type: Sequelize.DECIMAL(20,15)
       },
-      picture: {
-        type: Sequelize.BLOB('long')
+      longitude: {
+        type: Sequelize.DECIMAL(20,15)
       },
       created_at: {
         type: Sequelize.DATE,
@@ -32,6 +34,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('users')
+    return queryInterface.dropTable('coordinates')
   }
 };

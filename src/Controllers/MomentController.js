@@ -1,7 +1,7 @@
 
-const Moment = require('../Models/Moment.js')
-const User = require('../Models/User.js')
-const Tag = require('../Models/Tag.js')
+const Moment = require('../Models/Moment/Moment')
+const User = require('../Models/User/User')
+const Tag = require('../Models/Moment/Tag')
 
 module.exports = {
     async index (req, res) {
@@ -11,9 +11,9 @@ module.exports = {
             attributes: ['username', 'id', 'picture' ],
             include: [
                 {association: 'informations'},
+                {association: 'coordinates'},
                 {
                     association: 'moments',
-                    attributes: ['id', 'description', 'picture', 'type', 'createdAt', 'updatedAt'],
                     include: {
                         association: 'tags',
                         attributes: ['id', 'name'],

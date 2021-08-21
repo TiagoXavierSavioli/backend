@@ -6,6 +6,7 @@ const morgan = require('morgan');
 //routes
 const userRouter = require('./Utils/routes/user.js');
 const momentRouter = require('./Utils/routes/moments.js')
+const coordinateRouter = require('./Utils/routes/Coordinates')
 
 require('./database')
 
@@ -19,8 +20,7 @@ if(process.env.NODE_ENV === 'devolpment') {
 }
 
 //use routes
-app.use(userRouter)
-app.use(momentRouter)
+app.use(userRouter, momentRouter, coordinateRouter)
 
 
 app.use((err, req, res, next) => {
@@ -34,6 +34,6 @@ app.use((err, req, res, next) => {
         message: 'Internal Server Error'
     })
 })
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
