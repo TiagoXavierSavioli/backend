@@ -32,8 +32,8 @@ module.exports = {
     async findProximUsers(req, res) {
         const { latitude, longitude } = req.body
 
-        const allCoordinates = await Coordinates.findAndCountAll({
-            where: { latitude: latitude + 0.5, longitude: longitude+0.5 },
+        const allCoordinates = await Coordinates.findAll({
+            attributes : [[sequelize.fn('max', sequelize.col('latitude')),'10']],
         })
         return res.json(allCoordinates)
     }
