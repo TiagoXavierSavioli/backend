@@ -2,38 +2,26 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('moments', {
+    return queryInterface.createTable('chat_room', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
       },
-      user_id: {
+      user_id1: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {model: 'users', key: 'id'},
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'  
       },
-      description: {
-        type: Sequelize.STRING(100),
-      },
-      picture: {
-        type: Sequelize.BLOB,
-        allowNull: false
-      },
-      picture_low: {
-        type: Sequelize.BLOB,
-        allowNull: false
-      },
-      type: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      deleted: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false
+      user_id2: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {model: 'users', key: 'id'},
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'  
       },
       created_at: {
         type: Sequelize.DATE,
@@ -47,6 +35,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('moments')
+    return queryInterface.dropTable('chat_room')
   }
 };

@@ -18,7 +18,13 @@ module.exports = {
         allowNull: false
       },
       picture: {
-        type: Sequelize.BLOB('long')
+        type: Sequelize.BLOB
+      },
+      bg_picture: {
+        type: Sequelize.String(200)
+      },
+      description: {
+        type: Sequelize.String(300)
       },
       created_at: {
         type: Sequelize.DATE,

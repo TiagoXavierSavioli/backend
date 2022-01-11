@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('moments', {
+    return queryInterface.createTable('vieweds', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -14,25 +14,17 @@ module.exports = {
         allowNull: false,
         references: {model: 'users', key: 'id'},
         onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      moment_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {model: 'moments', key: 'id'},
+        onUpdate: 'CASCADE',
         onDelete: 'CASCADE'  
-      },
-      description: {
-        type: Sequelize.STRING(100),
-      },
-      picture: {
-        type: Sequelize.BLOB,
-        allowNull: false
-      },
-      picture_low: {
-        type: Sequelize.BLOB,
-        allowNull: false
       },
       type: {
         type: Sequelize.STRING,
-        allowNull: false
-      },
-      deleted: {
-        type: Sequelize.BOOLEAN,
         allowNull: false
       },
       created_at: {
@@ -47,6 +39,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('moments')
+    return queryInterface.dropTable('vieweds')
   }
 };

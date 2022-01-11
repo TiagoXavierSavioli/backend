@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('moments', {
+    return queryInterface.createTable('messages', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -16,24 +16,34 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'  
       },
-      description: {
-        type: Sequelize.STRING(100),
+      room_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {model: 'chat_room', key: 'id'},
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'  
       },
-      picture: {
-        type: Sequelize.BLOB,
-        allowNull: false
-      },
-      picture_low: {
-        type: Sequelize.BLOB,
-        allowNull: false
-      },
-      type: {
+      text: {
         type: Sequelize.STRING,
         allowNull: false
       },
+      file_type: {
+        type: Sequelize.STRING
+      },
+      file: {
+        type: Sequelize.BLOB
+      },
+      seen: {
+        type: Sequelize.BOOLEAN,
+      },
+      reaction: {
+        type: Sequelize.BOOLEAN,
+      },
       deleted: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+      },
+      data_read: {
+        type: Sequelize.DATE,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -47,6 +57,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('moments')
+    return queryInterface.dropTable('messages')
   }
 };

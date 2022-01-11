@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('moments', {
+    return queryInterface.createTable('social_links', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -16,24 +16,17 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'  
       },
-      description: {
+      instagram: {
         type: Sequelize.STRING(100),
       },
-      picture: {
-        type: Sequelize.BLOB,
-        allowNull: false
+      tiktok: {
+        type: Sequelize.STRING(100),
       },
-      picture_low: {
-        type: Sequelize.BLOB,
-        allowNull: false
+      snapchat: {
+        type: Sequelize.STRING(100),
       },
-      type: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      deleted: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false
+      whatsapp: {
+        type: Sequelize.STRING(100),
       },
       created_at: {
         type: Sequelize.DATE,
@@ -41,12 +34,12 @@ module.exports = {
       },
       updated_at: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false  
       }
-    })
+    })  
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('moments')
+    return queryInterface.dropTable('social_links')
   }
 };

@@ -1,13 +1,21 @@
 const bcrypt = require('bcryptjs');
 const sequelize = require('sequelize')
 
-const User = require('../Models/User/User');
 const Coordinates = require('../Models/Location/Coordinates');
-
+const User = require('../Models/User/User');
 module.exports = {
     async index(req, res) {
-        const allCoordinates = await Coordinates.findAll()
-        return res.json(allCoordinates)
+        const validUsername = await User.findAll({
+            attributes: ['username', 'id', 'picture' ],
+            include: [
+                {
+                    association: 'coordinates',
+                    attributes: ['latitude', 'longitude'],
+                },
+            ]
+        })
+        return res.json(validUsername)
+        
     },
 
     async store(req, res) {
