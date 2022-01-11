@@ -5,12 +5,12 @@ const { Server } = require('socket.io')
 const http = require('http');
 
 //routes
-const chatRouter = require('./Utils/routes/chat')
-const userRouter = require('./Utils/routes/user.js');
-const momentRouter = require('./Utils/routes/moments.js')
-const coordinateRouter = require('./Utils/routes/Coordinates')
+const chatRouter = require('./src/Utils/routes/chat')
+const userRouter = require('./src/Utils/routes/user.js');
+const momentRouter = require('./src/Utils/routes/moments.js')
+const coordinateRouter = require('./src/Utils/routes/Coordinates')
 
-require('./database')
+require('./src/database')
 
 //app
 const app = express();
