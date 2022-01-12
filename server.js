@@ -1,6 +1,5 @@
 const express = require('express')
 require('express-async-errors');
-const morgan = require('morgan');
 const { Server } = require('socket.io')
 const http = require('http');
 
@@ -18,7 +17,7 @@ app.use(express.json());
 
 // log route actions
 if(process.env.NODE_ENV === 'devolpment') {
-    app.use(morgan('dev'))
+
 }
 
 //use routes
