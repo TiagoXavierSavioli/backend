@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const debConfig = require('../config/database.js')
+const debConfig = require('../Config/database')
 
 // all models imports
 const User = require('../Models/User/User')
