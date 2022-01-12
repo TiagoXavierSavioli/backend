@@ -9,7 +9,7 @@ const userRouter = require('./src/Utils/routes/user.js');
 const momentRouter = require('./src/Utils/routes/moments.js')
 const coordinateRouter = require('./src/Utils/routes/Coordinates')
 
-require('./src/database')
+require('./src/database/index')
 
 //app
 const app = express();
