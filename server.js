@@ -1,14 +1,13 @@
 const express = require('express')
-require('express-async-errors');
+require('express-async-errors')
 const { Server } = require('socket.io')
-const http = require('http');
+const http = require('http')
 
 //routes
 const chatRouter = require('./src/Utils/routes/chat')
 const userRouter = require('./src/Utils/routes/user.js');
 const momentRouter = require('./src/Utils/routes/moments.js')
 const coordinateRouter = require('./src/Utils/routes/Coordinates')
-
 require('./src/database/index')
 
 //app
@@ -26,10 +25,10 @@ app.use(
     momentRouter,
     coordinateRouter,
     chatRouter,
+    
 )
-
-
 app.use((err, req, res, next) => {
+    
     if(err instanceof Error){
         return res.status(400).json({
             error: err.message
