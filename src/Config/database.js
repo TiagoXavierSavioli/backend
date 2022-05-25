@@ -1,7 +1,7 @@
 module.exports = {
-    host: 'localhost',
+    host: '192.168.0.10',
     dialect: 'mysql',
-    username: 'root',
+    username: 'tiagoxsavioli',
     password: 'marvel99',
     database: 'circle',
     define: {

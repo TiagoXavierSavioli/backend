@@ -2,6 +2,7 @@ const express = require('express')
 require('express-async-errors')
 const { Server } = require('socket.io')
 const http = require('http')
+const Text = require('./src/Algorithms/Moments/index')
 
 //routes
 const chatRouter = require('./src/Utils/routes/chat')
@@ -19,6 +20,7 @@ if(process.env.NODE_ENV === 'devolpment') {
 
 }
 
+
 //use routes
 app.use(
     userRouter,
@@ -28,6 +30,7 @@ app.use(
     
 )
 app.use((err, req, res, next) => {
+    Text()
     
     if(err instanceof Error){
         return res.status(400).json({
@@ -39,7 +42,7 @@ app.use((err, req, res, next) => {
         message: 'Internal Server Error'
     })
 })
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000
 
 const serverHttp = http.createServer(app)
 
